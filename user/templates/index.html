@@ -1,0 +1,13 @@
+<div>
+    {% if latest_user %}
+        <ul>
+            {% for user in latest_user %}
+                    <li>
+                        <a href="/user/{{ user.id }}"/>
+                    </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        NOPE
+    {% endif %}
+</div>
