@@ -1,7 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.core.urlresolvers import reverse
 
-from .models import User
+from .models import User, Person, Location
 
 # Create your views here.
 
@@ -14,3 +15,6 @@ def index(request):
 def login(request, username):
     return HttpResponse("Login Page %s."
                         % username)
+
+def create(request):
+    return render(request,'create.html')
