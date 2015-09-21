@@ -17,4 +17,8 @@ def login(request, username):
                         % username)
 
 def create(request):
+	#if request.method == 'POST'
+	#process and validate data
+	#else
+	#render a form
     return render(request,'create.html')
