@@ -1,8 +1,10 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
+from django import forms
 
 from .models import User, Person, Location
+from .forms import UserForm
 
 # Create your views here.
 
@@ -17,8 +19,7 @@ def login(request, username):
                         % username)
 
 def create(request):
-	#if request.method == 'POST'
-	#process and validate data
-	#else
-	#render a form
-    return render(request,'create.html')
+	if request.method == 'GET':
+		form = UserForm()
+		render(request, 'create_model_form.html',{{form:form}})
+	return render(request, 'create.html', {user: User})
