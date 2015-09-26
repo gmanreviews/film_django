@@ -32,3 +32,12 @@ class User(models.Model):
     def create_user(self, username, password, person):
         user = self.create(username=username,password=password,person=person)
         return user
+
+    def autheticate_user(username, password):
+        result = 0
+        try:
+            user = User.objects.get(username=username);
+            result = password == user.password
+        except:
+            result = 0
+        return result

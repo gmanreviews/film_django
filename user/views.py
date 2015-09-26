@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django import forms
 
 from .models import User, Person, Location
-from .forms import UserForm
+from .forms import LoginForm
 
 # Create your views here.
 
@@ -19,7 +19,16 @@ def login(request, username):
                         % username)
 
 def create(request):
-	if request.method == 'GET':
-		form = UserForm()
-		render(request, 'create_model_form.html',{{form:form}})
-	return render(request, 'create.html', {user: User})
+	if request.method == 'POST':
+		form = LoginForm(request.POST)
+		if form.is_valid():
+			user = form.save(commit=0)
+			if User.autheticate_user(user.username, user.password):
+				return HttpResponse("YES")
+			else:
+				return HttpResponse("NO")
+		else:
+			return HttpResponse("BAD FORM")
+	else:
+		form = LoginForm()
+		return render(request, 'create_model_form.html',{'form':form})
